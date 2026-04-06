@@ -1,6 +1,5 @@
-@import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
 
 :root {
   --accent: #6366f1;
@@ -25,3 +24,22 @@ body {
 }
 
 #root { min-height: 100vh; }
+
+/* Print styles for cheat sheet */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .fixed { position: static !important; }
+  [style*="backdrop-filter"] {
+    backdrop-filter: none !important;
+    background: #fff !important;
+    border-color: #ddd !important;
+  }
+  * {
+    color: #000 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+}

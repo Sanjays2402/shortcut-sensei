@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import { appNames, appIcons } from '../data/shortcuts';
+import WrongAnswerReview from './WrongAnswerReview';
 
 export default function ResultScreen({ results, config, onReplay, onHome }) {
-  const { correct, wrong, total, streak, accuracy, timeElapsed } = results;
+  const { correct, wrong, total, streak, accuracy, timeElapsed, missed = [] } = results;
 
   // Save best score
   const key = `sensei-best-${config.app}-${config.mode}-${config.difficulty}`;
@@ -21,7 +22,7 @@ export default function ResultScreen({ results, config, onReplay, onHome }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, type: 'spring' }}
-      className="relative z-10 min-h-screen flex items-center justify-center px-4"
+      className="relative z-10 min-h-screen flex items-center justify-center px-4 py-8"
     >
       <div className="w-full max-w-lg p-8 rounded-2xl"
         style={{
@@ -37,7 +38,9 @@ export default function ResultScreen({ results, config, onReplay, onHome }) {
           <h2 className="text-2xl font-bold text-white">
             {accuracy >= 75 ? 'Great job!' : accuracy >= 50 ? 'Not bad!' : 'Keep practicing!'}
           </h2>
-          <p className="text-gray-500 text-sm mt-1">{appIcons[config.app]} {appNames[config.app]} • {config.difficulty}</p>
+          <p className="text-gray-500 text-sm mt-1">
+            {appIcons[config.app] || '📝'} {appNames[config.app] || 'Custom'} • {config.difficulty}
+          </p>
         </div>
 
         {/* Stats grid */}
@@ -65,8 +68,11 @@ export default function ResultScreen({ results, config, onReplay, onHome }) {
           </div>
         )}
 
+        {/* Wrong answer review */}
+        {missed.length > 0 && <WrongAnswerReview missedQuestions={missed} />}
+
         {/* Actions */}
-        <div className="flex gap-3">
+        <div className="flex gap-3 mt-6">
           <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={onReplay}
             className="flex-1 py-3 rounded-xl font-semibold text-white"
