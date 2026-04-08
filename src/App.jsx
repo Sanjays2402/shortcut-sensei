@@ -7,6 +7,7 @@ import ResultScreen from './components/ResultScreen';
 import DailyChallenge from './components/DailyChallenge';
 import CheatSheet from './components/CheatSheet';
 import CustomShortcuts from './components/CustomShortcuts';
+import Leaderboard from './components/Leaderboard';
 
 export default function App() {
   const [screen, setScreen] = useState('menu');
@@ -14,6 +15,7 @@ export default function App() {
   const [results, setResults] = useState(null);
   const [cheatApp, setCheatApp] = useState(null);
   const [showCustom, setShowCustom] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   const startGame = useCallback((cfg) => {
     setConfig(cfg);
@@ -47,6 +49,7 @@ export default function App() {
             onDaily={() => setScreen('daily')}
             onCheatSheet={(app) => setCheatApp(app)}
             onCustom={() => setShowCustom(true)}
+            onLeaderboard={() => setShowLeaderboard(true)}
           />
         )}
         {screen === 'game' && <GameScreen key="game" config={config} onEnd={endGame} onQuit={goHome} />}
@@ -58,6 +61,7 @@ export default function App() {
       <AnimatePresence>
         {cheatApp && <CheatSheet key="cheat" app={cheatApp} onClose={() => setCheatApp(null)} />}
         {showCustom && <CustomShortcuts key="custom" onClose={() => setShowCustom(false)} />}
+        {showLeaderboard && <Leaderboard key="leaderboard" onClose={() => setShowLeaderboard(false)} />}
       </AnimatePresence>
     </div>
   );

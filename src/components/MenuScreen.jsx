@@ -15,7 +15,7 @@ const difficulties = [
   { id: 'master', label: 'Master', color: '#ef4444' },
 ];
 
-export default function MenuScreen({ onStart, onDaily, onCheatSheet, onCustom }) {
+export default function MenuScreen({ onStart, onDaily, onCheatSheet, onCustom, onLeaderboard }) {
   const [app, setApp] = useState('vscode');
   const [mode, setMode] = useState('practice');
   const [difficulty, setDifficulty] = useState('beginner');
@@ -85,6 +85,20 @@ export default function MenuScreen({ onStart, onDaily, onCheatSheet, onCustom })
           }}
         >
           📝 Custom Shortcuts
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.03, boxShadow: '0 0 20px rgba(99,102,241,0.15)' }}
+          whileTap={{ scale: 0.97 }}
+          onClick={onLeaderboard}
+          className="px-5 py-2.5 rounded-xl font-medium text-sm transition-all"
+          style={{
+            background: 'rgba(30,30,40,0.5)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            color: '#999',
+            backdropFilter: 'blur(12px)',
+          }}
+        >
+          🏆 Leaderboard
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.03 }}
